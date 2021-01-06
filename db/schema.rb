@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_211736) do
+ActiveRecord::Schema.define(version: 2021_01_06_215245) do
 
   create_table "customers", force: :cascade do |t|
     t.string "first_name"
@@ -21,11 +21,18 @@ ActiveRecord::Schema.define(version: 2021_01_06_211736) do
     t.string "password"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string "service_name"
+    t.integer "service_time"
+    t.integer "cost"
+  end
+
   create_table "skis", force: :cascade do |t|
     t.string "make"
     t.string "model"
     t.string "ski_type"
     t.integer "ski_length"
+    t.string "ski_condition"
     t.integer "customer_id"
     t.index ["customer_id"], name: "index_skis_on_customer_id"
   end
