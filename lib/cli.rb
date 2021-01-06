@@ -9,7 +9,7 @@ class Cli
     attr_accessor :customer
 
     def clear 
-        system("clear)")
+        system("clear")
     end
 
     def intialize customer=nil
@@ -42,9 +42,24 @@ class Cli
             username: username,
             password: password
         )  
+        new_ski  
+    end
 
-        puts "you did it"    
-        binding.pry
+    def new_ski
+        puts "Tell us about your skis!"
+        ski_type_array = ["Powder", "All Mountain", "Race", "Park"]
+        make = prompt.ask "Who is the manufacturer of your skis?"
+        model = prompt.ask "What is the model of the skis?"
+        ski_length = prompt.ask "What length are these skis?"
+        ski_type = prompt.select("What type of skis are these?", ski_type_array)
+        
+        Ski.create(
+            make: make,
+            model: model,
+            ski_type: ski_type,
+            ski_length: ski_length,
+            customer_id: self.customer.id
+        )
     end
 
 
