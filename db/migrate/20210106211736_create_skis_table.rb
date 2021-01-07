@@ -5,6 +5,7 @@ class CreateSkisTable < ActiveRecord::Migration[6.0]
       t.string :model
       t.string :ski_type
       t.integer :ski_length
+      t.string :ski_condition
       t.references :customer
     end
   end
