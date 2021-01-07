@@ -19,6 +19,28 @@ class Cli
     def welcome
         clear
         puts "Welcome to the Ski Shop!"
+        puts "
+                      /----|       .         .
+        .            /     [   .        .         .
+               ______|---- _|__     .        .
+      .     _--    --\_<\_//   \-----           .
+           _  _--___   \__/     ___  -----_ **     *
+      *  _- _-      --_         /  [ ----__  --_  *
+      */__-      .    [           _[  *** --_  [*
+        [*/ .          __[/-----__/   [**     [*/
+              .     /--  /            /
+           .        /   /   /[----___/        .
+                   /   /*[  !   /==/              .
+        .         /   /==[   |/==/      .
+                _/   /=/ | _ |=/   .               .
+               /_   //  / _ _//              .
+       .       [ '//    |__//    .    .            .
+              /==/  .  /==/                .
+            /==/     /==/                       .
+          /==/     /==/       .       .    .
+       _/==/    _/==/            .
+       [|*      [|*                   "
+       puts " "
         user_input = prompt.yes? "Have you visited us before?"
         if user_input
             sign_in    
@@ -44,6 +66,7 @@ class Cli
             puts "Sorry we couldnt find your username"
             puts "Please press Enter to create a new account"
             gets
+            clear
             sign_up
             # user_input = prompt.ask "username does not exist. Please enter your email..."
             # self.customer = Customer.find_by_email user_input
@@ -52,6 +75,7 @@ class Cli
     end
     
     def customer_options
+        clear
         customer_options_array = ["Work on my skis", "Manage my account"]
         user_input = prompt.select("How can we help you today?", customer_options_array)
         if user_input == customer_options_array[0]
@@ -65,6 +89,7 @@ class Cli
         user_input = prompt.yes? "Would you like to delete your account?"
         if user_input
             @customer.destroy
+            clear
             puts "We hate to see you go, but we love to watch you leave!"
             exit
         else
@@ -74,7 +99,6 @@ class Cli
         end
     end
     def sign_up
-        clear
         first_name = prompt.ask "What is your first name?"
         last_name = prompt.ask "What is your last name?"
         age = prompt.ask "How old are you?"
@@ -96,6 +120,7 @@ class Cli
     def new_ski
         clear
         puts "Tell us about your skis!"
+        puts " "
         ski_type_array = ["Powder", "All Mountain", "Race", "Park"]
         ski_condition_array = ["Slow", "Dull Edges", "Destroyed by Rocks", "New pair of skis"]
         make = prompt.ask "Who is the manufacturer of your skis?"
@@ -150,9 +175,11 @@ class Cli
 
     def conduct_service
         puts "We are currently working on your #{@current_ski.make} #{@current_ski.model} that is currently #{@current_ski.ski_condition}."
-       
-        # puts "Your current ski condition is "    #add current ski condition
         puts " "
+        puts "Press enter to watch the magic happen"
+        gets
+        clear
+       
         bar = TTY::ProgressBar.new("The techs are working on your skis!!! [:bar]", total: 30)
         30.times do
             sleep(0.1)
@@ -160,8 +187,31 @@ class Cli
         end
         tune_ski
         clear
-        puts "Your ski condition is now #{@current_ski.ski_condition} " #add current ski condition
+        puts "Your ski condition is now #{@current_ski.ski_condition} "
+        puts " "
+        puts "
+                        *
+                        XX
+                    MMMMM
+                    //(00
+                    .:.....
+                .:::::::::
+                :: %%%%%% ::.
+                ::  ::::::  :::::::I)
+                (%  ::::::         |
+                /   |   /_____     |
+                /    |         ))   |
+                /      ------/ //    |
+                /            / //     |
+                /            / //      |
+                *            ZZZZ       *
+                _________ZZZZZZ_________//_//
+                ------------------------------------    
+        "
+        puts " "
         puts "You've bugged us long enough, time for you to go shred!"
+        puts " "
+        puts " "
     end
 
 end
