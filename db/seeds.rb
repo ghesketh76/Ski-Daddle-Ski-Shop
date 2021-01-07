@@ -1,0 +1,5 @@
+wax = Service.create(service_name: "Wax", service_time: 30, cost: 20)
+edge = Service.create(service_name: "Edge", service_time: 20, cost: 15)
+base_repair = Service.create(service_name: "Base Repair", service_time: 120, cost: 60)
+full_tune = Service.create(service_name: "Full Tune", service_time: 120, cost: 75)
+mounting = Service.create(service_name: "Binding Mounting", service_time: 60, cost: 50)
