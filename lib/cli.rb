@@ -33,7 +33,13 @@ class Cli
         if found_customer
             self.customer = found_customer
             puts "Welcome back #{customer.first_name} #{customer.last_name}"
-            customer_options
+            pass_input = prompt.ask "Please enter your password"
+            if pass_input == @customer.password
+                customer_options
+            else
+                puts "Sorry that does not match our records, please try again"
+                sign_in
+            end
         else
             puts "Sorry we couldnt find your username"
             puts "Please press Enter to create a new account"
