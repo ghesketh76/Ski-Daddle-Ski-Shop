@@ -33,7 +33,13 @@ class Cli
         if found_customer
             self.customer = found_customer
             puts "Welcome back #{customer.first_name} #{customer.last_name}"
-            new_ski
+            pass_input = prompt.ask "Please enter your password"
+            if pass_input == @customer.password
+                customer_options
+            else
+                puts "Sorry that does not match our records, please try again"
+                sign_in
+            end
         else
             puts "Sorry we couldnt find your username"
             puts "Please press Enter to create a new account"
@@ -45,7 +51,28 @@ class Cli
         end
     end
     
+    def customer_options
+        customer_options_array = ["Work on my skis", "Manage my account"]
+        user_input = prompt.select("How can we help you today?", customer_options_array)
+        if user_input == customer_options_array[0]
+            new_ski
+        else user_input == customer_options_array[1]
+            manage_account
+        end
+    end
 
+    def manage_account
+        user_input = prompt.yes? "Would you like to delete your account?"
+        if user_input
+            @customer.destroy
+            puts "We hate to see you go, but we love to watch you leave!"
+            exit
+        else
+            puts "Press Enter to return to ski shop"
+            gets 
+            welcome
+        end
+    end
     def sign_up
         clear
         first_name = prompt.ask "What is your first name?"
