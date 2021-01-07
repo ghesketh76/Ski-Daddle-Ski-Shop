@@ -35,9 +35,13 @@ class Cli
             puts "Welcome back #{customer.first_name} #{customer.last_name}"
             new_ski
         else
-            user_input = prompt.ask "username does not exist. Please enter your email..."
-            self.customer = Customer.find_by_email user_input
-            new_ski
+            puts "Sorry we couldnt find your username"
+            puts "Please press Enter to create a new account"
+            gets
+            sign_up
+            # user_input = prompt.ask "username does not exist. Please enter your email..."
+            # self.customer = Customer.find_by_email user_input
+            #if else statement here to handle nil or input
         end
     end
     
@@ -66,15 +70,15 @@ class Cli
         clear
         puts "Tell us about your skis!"
         ski_type_array = ["Powder", "All Mountain", "Race", "Park"]
-        ski_condition_array = ["Slow", "Dull Edges", "Destroyed by Rocks"]
+        ski_condition_array = ["Slow", "Dull Edges", "Destroyed by Rocks", "New pair of skis"]
         make = prompt.ask "Who is the manufacturer of your skis?"
         model = prompt.ask "What is the model of the skis?"
         ski_length = prompt.ask "What length are these skis?"
         ski_type = prompt.select("What type of skis are these?", ski_type_array)
         ski_condition = prompt.select("What condition are your skis in?", ski_condition_array)
 
-        
-        Ski.create(
+        #save this to a instance variable?
+        @current_ski = Ski.create(                         
             make: make,
             model: model,
             ski_type: ski_type,
@@ -87,7 +91,7 @@ class Cli
 
     def select_service
         clear
-        @requested_service = prompt.select("What would you like to do today?", Service.all.pluck(:service_name))
+        @requested_service = prompt.select("How can we make your skis better today", Service.all.pluck(:service_name))
         service_estimation
     end
 
@@ -96,7 +100,7 @@ class Cli
         current_service = Service.all.find do |service|
             service.service_name == @requested_service
         end   
-        puts "Your #{@requested_service} will cost #{current_service.cost} and it will take us about #{current_service.service_time} minutes to complete."
+        puts "Your #{@requested_service} will cost $#{current_service.cost} and it will take us about #{current_service.service_time} minutes to complete."
         answer = prompt.yes? "Would you like to proceed?"
         clear
         if answer
@@ -113,17 +117,23 @@ class Cli
         end
     end
 
+    def tune_ski
+        @current_ski.ski_condition = "Tuned"
+    end
+
     def conduct_service
-        puts "Your current ski condition is "    #add current ski condition
+        puts "We are currently working on your #{@current_ski.make} #{@current_ski.model} that is currently #{@current_ski.ski_condition}."
+       
+        # puts "Your current ski condition is "    #add current ski condition
         puts " "
         bar = TTY::ProgressBar.new("The techs are working on your skis!!! [:bar]", total: 30)
         30.times do
             sleep(0.1)
             bar.advance(1)
         end
-        # change ski condition to "tuned"
+        tune_ski
         clear
-        puts "Your ski condition is now   " #add current ski condition
+        puts "Your ski condition is now #{@current_ski.ski_condition} " #add current ski condition
         puts "You've bugged us long enough, time for you to go shred!"
     end
 
