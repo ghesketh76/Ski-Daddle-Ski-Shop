@@ -126,7 +126,7 @@ class Cli
         ski_type = prompt.select("What type of skis are these?", ski_type_array)
         ski_condition = prompt.select("What condition are your skis in?", ski_condition_array)
 
-        #save this to a instance variable?
+        
         @current_ski = Ski.create(                         
             make: make,
             model: model,
