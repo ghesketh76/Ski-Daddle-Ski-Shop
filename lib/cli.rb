@@ -18,7 +18,7 @@ class Cli
 
     def welcome
         clear
-        puts "Welcome to the Ski Shop!"
+        puts "Welcome to the Ski Daddle Ski Shop!"
         puts "
                       /----|       .         .
         .            /     [   .        .         .
@@ -54,23 +54,20 @@ class Cli
         found_customer = Customer.find_by(username: user_input)
         if found_customer
             self.customer = found_customer
-            puts "Welcome back #{customer.first_name} #{customer.last_name}"
-            pass_input = prompt.ask "Please enter your password"
+            puts "Welcome back #{customer.first_name} #{customer.last_name}."
+            pass_input = prompt.ask "Please enter your password..."
             if pass_input == @customer.password
                 customer_options
             else
-                puts "Sorry that does not match our records, please try again"
+                puts "Sorry that does not match our records, please try again."
                 sign_in
             end
         else
-            puts "Sorry we couldnt find your username"
-            puts "Please press Enter to create a new account"
+            puts "Sorry we couldnt find your username!"
+            puts "Please press ENTER to create a new account..."
             gets
             clear
             sign_up
-            # user_input = prompt.ask "username does not exist. Please enter your email..."
-            # self.customer = Customer.find_by_email user_input
-            #if else statement here to handle nil or input
         end
     end
     
@@ -93,7 +90,7 @@ class Cli
             puts "We hate to see you go, but we love to watch you leave!"
             exit
         else
-            puts "Press Enter to return to ski shop"
+            puts "Press ENTER to return to ski shop..."
             gets 
             welcome
         end
@@ -143,7 +140,7 @@ class Cli
 
     def select_service
         clear
-        @requested_service = prompt.select("How can we make your skis better today", Service.all.pluck(:service_name))
+        @requested_service = prompt.select("How can we make your skis better today?", Service.all.pluck(:service_name))
         service_estimation
     end
 
@@ -153,6 +150,7 @@ class Cli
             service.service_name == @requested_service
         end   
         puts "Your #{@requested_service} will cost $#{current_service.cost} and it will take us about #{current_service.service_time} minutes to complete."
+        puts " "
         answer = prompt.yes? "Would you like to proceed?"
         clear
         if answer
@@ -170,13 +168,13 @@ class Cli
     end
 
     def tune_ski
-        @current_ski.ski_condition = "Tuned"
+        @current_ski.ski_condition = "tuned"
     end
 
     def conduct_service
         puts "We are currently working on your #{@current_ski.make} #{@current_ski.model} that is currently #{@current_ski.ski_condition}."
         puts " "
-        puts "Press enter to watch the magic happen"
+        puts "Press ENTER to watch the magic happen..."
         gets
         clear
        
@@ -187,7 +185,7 @@ class Cli
         end
         tune_ski
         clear
-        puts "Your ski condition is now #{@current_ski.ski_condition} "
+        puts "Your ski condition is now #{@current_ski.ski_condition}."
         puts " "
         puts "
                         *
