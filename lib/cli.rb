@@ -21,13 +21,25 @@ class Cli
         puts "Welcome to the Ski Shop!"
         user_input = prompt.yes? "Have you visited us before?"
         if user_input
-            sign_in    #make method
+            sign_in    
         else
             sign_up
         end
     end
 
-
+    def sign_in 
+        user_input = prompt.ask "Please enter your username..."
+        found_customer = Customer.find_by(username: user_input)
+        if found_customer
+            self.customer = found_customer
+            puts "Welcome back #{customer.first_name} #{customer.last_name}"
+            new_ski
+        else
+            user_input = prompt.ask "username does not exist. Please enter your email..."
+            self.customer = Customer.find_by_email user_input
+            new_ski
+        end
+    end
     
 
     def sign_up
@@ -102,7 +114,7 @@ class Cli
     end
 
     def conduct_service
-        puts "Your current ski condition is "
+        puts "Your current ski condition is "    #add current ski condition
         puts " "
         bar = TTY::ProgressBar.new("The techs are working on your skis!!! [:bar]", total: 30)
         30.times do
@@ -111,7 +123,7 @@ class Cli
         end
         # change ski condition to "tuned"
         clear
-        puts "Your ski condition is now   "
+        puts "Your ski condition is now   " #add current ski condition
         puts "You've bugged us long enough, time for you to go shred!"
     end
 
