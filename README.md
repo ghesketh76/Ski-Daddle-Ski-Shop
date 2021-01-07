@@ -1,71 +1,93 @@
-# Mod 1 ActiveRecord Starter Repo
-
-In `config/database.yml`, you can change the name of the database from `db/cats.sqlite3` to whatever reflects your project. For example: `db/notes.sqlite3`. Doesn't really matter what you call the db. 
-
+# Ski Daddle Ski Shop
+> The chillest ski shop on the front range!
 
 
-## ActiveRecord Methods
-These common ActiveRecord methods will help you interact with your database. Please refer to the ActiveRecord
-docs for what they do and how to use them. (If the docs talk about Rails, that is ok! ActiveRecord works very
- similar with or without Rails.)
+## General Info
+
+Ski Daddle Ski Shop is a CLI application that gives the user a virtual ski shop experience. The customer has the ability to create and save a personal account, submit a pair of skis that need work and links them to their personal account. The customer then selects a service for the ski, and watches as it is tuned! The customer also has the ability to delete their personal account. Come on in and lets get you on the slopes!
+
+## Technologies
+* Ruby - Version 2.6.1
+* ActiveRecord - Version 6.0
+* Sinatra-ActiveRecord - Version 2.0
+* Rake - Version 13.0
+* SQLite3 - Version 1.4
+* TTY-Prompt - Version 0.23.0
+* TTY-ProgressBar - 0.17.0
+
+## Setup
+
+ To get started, clone the repository from github to your computer.
+
+In your terminal, run the following commands:
+
+
+```ruby
+ $ bundle
+ $ rake db:seed 
+ ```
+
+
+## Running the program
+
+Run the following command in your terminal:
+``` $ ruby runner.rb ```
+
+Follow the onscreen prompts!
+
+## Code Examples
+
+```ruby
+ def new_ski
+        clear
+        puts "Tell us about your skis!"
+        puts " "
+        ski_type_array = ["Powder", "All Mountain", "Race", "Park"]
+        ski_condition_array = ["Slow", "Dull Edges", "Destroyed by Rocks", "New pair of skis"]
+        make = prompt.ask "Who is the manufacturer of your skis?"
+        model = prompt.ask "What is the model of the skis?"
+        ski_length = prompt.ask "What length are these skis?"
+        ski_type = prompt.select("What type of skis are these?", ski_type_array)
+        ski_condition = prompt.select("What condition are your skis in?", ski_condition_array)
+
+        
+        @current_ski = Ski.create(                         
+            make: make,
+            model: model,
+            ski_type: ski_type,
+            ski_length: ski_length,
+            ski_condition: ski_condition,
+            customer_id: self.customer.id
+        )
+        select_service
+    end
+``` 
+
+```ruby
+ def customer_options
+        clear
+        customer_options_array = ["Work on my skis", "Manage my account"]
+        user_input = prompt.select("How can we help you today?", customer_options_array)
+        if user_input == customer_options_array[0]
+            new_ski
+        else user_input == customer_options_array[1]
+            manage_account
+        end
+    end
 ```
-  .create (.new, .save)
-  .all
-  .count
-  .find
-  .find_by
-  .where
-```
+## Features
+* Create customer account
+* Require password for sign in
+* Create new ski entry
+* Select ski service
+* Conduct ski service
+* Delete customer account
 
-#### Notes
+To-do list:
+* Add function for snow reports via API
+* Use email to recover account
 
-*Remember*, any model that will have a corresponding table in the database needs to inherit from `ActiveRecord::Base`
-ex:
-```
-class Cat < ActiveRecord::Base
-  # customer methods defined here
-end
-```
+## Contact
+Created by [Grant Hesketh](https://www.linkedin.com/in/granthesketh/) and [Luke Thinnes](https://www.linkedin.com/in/luke-thinnes-37a2a014b/) 
 
-- To view database, you can run `sqlite3 db/cats.db`, then can run `.schema` or `.tables` and can run any SQL commands. (Don't need to do this anymore though! ActiveRecord gives us a schema file!)
-
-
-### Steps to setup Ruby app with activerecord
-(New for ActiveRecord 6.0)
-
-
-## The following steps are already done for you in this boiler plate repo. 
-## The steps below are provided to you as a reference only. 
-## You're not expected to memorize this (please don't).
-
-
-1. In root of project, run `bundle init`
-1. Add gems: 
-  `bundle add activerecord pry sinatra, sinatra-activerecord rake sqlite3 require_all`
-  run `bundle install`
-1. mkdir config and lib 
-1. mkdir lib/models
-1. touch config/environment.rb config/database.yml
-1. Create your model files and models (make sure to have your models inherit from ActiveRecord::Base)
-1. In config/environment.rb:
-```
-  require 'bundler/setup'
-  Bundler.require
-
-  require_all 'lib'
-```
-1. In config/database.yml:
-  ```
-  development:
-    adapter: sqlite3
-    database: db/cats.sqlite3
-  ```
-1. Touch Rakefile - require ‘config/environment.rb’ and require_relative ‘sinatra/activerecord/rake’ 
-1. Run rake -T to make sure we have access to raketasks
-1. Run `rake db:create_migration NAME=create_cats_table` (will create the db folder if it doesn’t already exist) and will add the migration file to db/migration
-1. Write migration file, then run `rake db:migrate`
-1. Then can see schema in file structure, can also drop into sqlite3 cats.db to see the tables and schema, but don’t really need to do that anymore. *Review rollback here*
-1. Create seeds in db/seeds.rb and run `rake db:seed`
-1. Now can put a pry in environment.rb to run <ModelName>.all and see your seeds.
-
-Make sure your models inherit from `ActiveRecord::Base`
+Feel free to contact us!
