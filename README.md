@@ -24,6 +24,7 @@ In your terminal, run the following commands:
 
 ```ruby
  $ bundle
+ $ rake db:migrate
  $ rake db:seed 
  ```
 
