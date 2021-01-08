@@ -41,7 +41,6 @@ Follow the onscreen prompts!
  def new_ski
         clear
         puts "Tell us about your skis!"
-        puts " "
         ski_type_array = ["Powder", "All Mountain", "Race", "Park"]
         ski_condition_array = ["Slow", "Dull Edges", "Destroyed by Rocks", "New pair of skis"]
         make = prompt.ask "Who is the manufacturer of your skis?"
@@ -50,7 +49,6 @@ Follow the onscreen prompts!
         ski_type = prompt.select("What type of skis are these?", ski_type_array)
         ski_condition = prompt.select("What condition are your skis in?", ski_condition_array)
 
-        
         @current_ski = Ski.create(                         
             make: make,
             model: model,
@@ -60,7 +58,7 @@ Follow the onscreen prompts!
             customer_id: self.customer.id
         )
         select_service
-    end
+ end
 ``` 
 
 ```ruby
