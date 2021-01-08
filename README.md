@@ -1,6 +1,9 @@
 # Ski Daddle Ski Shop
 > The chillest ski shop on the front range!
 
+## Demonstration Video
+
+[Ski Daddle Ski Shop Demo](https://youtu.be/v3kaePbHWaQ)
 
 ## General Info
 
